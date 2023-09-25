@@ -22,6 +22,7 @@ const Images = {
   seven_of_clubs: require('./7_of_clubs.png'),
   seven_of_diamonds: require('./7_of_diamonds.png'),
   seven_of_hearts: require('./7_of_hearts.png'),
+  seven_of_spades: require('./7_of_spades.png'),
   eight_of_clubs: require('./8_of_clubs.png'),
   eight_of_diamonds: require('./8_of_diamonds.png'),
   eight_of_hearts: require('./8_of_hearts.png'),
@@ -52,6 +53,8 @@ const Images = {
   ace_of_spades: require('./ace_of_spades.png'),
   red_joker: require('./red_joker.png'),
   black_joker: require('./black_joker.png'),
+  blueChip: require('./blueChip.png'),
+  redChip: require('./redChip.png'),
 };
 
 export default Images;

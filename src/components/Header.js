@@ -4,7 +4,7 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import Icons from '../assets/Icons';
 import {Colors, NavService} from '../config';
 
-export function Header({title, back = true}) {
+export function Header({title, back = false}) {
   return (
     <View
       style={{
@@ -20,7 +20,7 @@ export function Header({title, back = true}) {
         <View style={{position: 'absolute', left: 0, right: 0}}>
           <Text
             style={{
-              color: Colors.text,
+              color: Colors.black,
               fontSize: 22,
               fontWeight: '500',
               textAlign: 'center',

@@ -7,7 +7,7 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 const AppBackground = ({
   children,
   title,
-  back = true,
+  back = false,
   containerStyle = {},
   showHeader = true,
 }) => {
