@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Colors} from '../../config';
 import {ChipSvgs} from '../../assets/chips';
+import {useAuth} from '../../context/AuthContext';
 import type {AppStackParamList} from '../../types/navigation';
 import type {PlayerCount} from '../../game/types';
 import {handSizeFor, sequencesToWin} from '../../game/deck';
@@ -13,14 +14,45 @@ type Props = NativeStackScreenProps<AppStackParamList, 'Setup'>;
 const OPTIONS: PlayerCount[] = [2, 3];
 
 export default function Setup({navigation}: Props) {
+  const {user, logout} = useAuth();
+  const [signingOut, setSigningOut] = useState(false);
+
   const start = (playerCount: PlayerCount) => {
     navigation.replace('Game', {playerCount});
+  };
+
+  const onLogout = async () => {
+    if (signingOut) {
+      return;
+    }
+    setSigningOut(true);
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Sign out failed', error);
+    } finally {
+      setSigningOut(false);
+    }
   };
 
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.content}>
-        <Text style={styles.brand}>Sequence</Text>
+        <View style={styles.topRow}>
+          <Text style={styles.brand}>Sequence</Text>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={onLogout}
+            disabled={signingOut}
+            style={styles.logoutButton}>
+            <Text style={styles.logoutText}>
+              {signingOut ? '…' : 'Sign out'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.greeting}>
+          {user ? `Hi, ${user.displayName}` : 'Welcome'}
+        </Text>
         <Text style={styles.subtitle}>
           Choose players. First to complete the required sequences wins.
         </Text>
@@ -74,11 +106,33 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 24,
   },
+  topRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   brand: {
     fontSize: 40,
     fontWeight: '800',
     color: Colors.primary,
     letterSpacing: -0.5,
+  },
+  logoutButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 20,
+    backgroundColor: Colors.primarySoft,
+  },
+  logoutText: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: Colors.primary,
+  },
+  greeting: {
+    marginTop: 6,
+    fontSize: 15,
+    fontWeight: '600',
+    color: Colors.primary,
   },
   subtitle: {
     marginTop: 8,

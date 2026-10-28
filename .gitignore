@@ -35,6 +35,16 @@ local.properties
 !debug.keystore
 .kotlin/
 
+# env
+#
+.env
+.env.*
+!.env.example
+
+# graphify
+#
+graphify-out/
+
 # node.js
 #
 node_modules/

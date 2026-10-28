@@ -11,6 +11,7 @@ import {
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
+import {AuthProvider} from './src/context/AuthContext';
 import Navigation from './src';
 
 if (Platform.OS === 'android') {
@@ -28,7 +29,9 @@ const App = () => {
       <Wrapper>
         <GestureHandlerRootView style={styles.flex}>
           <StatusBar barStyle="dark-content" />
-          <Navigation />
+          <AuthProvider>
+            <Navigation />
+          </AuthProvider>
           <Toast />
         </GestureHandlerRootView>
       </Wrapper>
