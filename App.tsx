@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {type PropsWithChildren, useEffect} from 'react';
 import {
   View,
   StatusBar,
@@ -6,11 +6,12 @@ import {
   KeyboardAvoidingView,
   Platform,
   UIManager,
+  StyleSheet,
 } from 'react-native';
-import Navigation from './src';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Toast from 'react-native-toast-message';
 import Orientation from 'react-native-orientation-locker';
+import Navigation from './src';
 
 if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -28,12 +29,8 @@ const App = () => {
 
   return (
     <Wrapper>
-      <GestureHandlerRootView style={{flex: 1, backgroundColor: 'white'}}>
-        <StatusBar
-          translucent={true}
-          backgroundColor="transparent"
-          barStyle="dark-content"
-        />
+      <GestureHandlerRootView style={styles.flex}>
+        <StatusBar barStyle="dark-content" />
         <Navigation />
         <Toast />
       </GestureHandlerRootView>
@@ -43,12 +40,21 @@ const App = () => {
 
 export default App;
 
-function Wrapper({children}) {
-  if (Platform.OS === 'ios')
+function Wrapper({children}: PropsWithChildren) {
+  if (Platform.OS === 'ios') {
     return (
-      <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
+      <KeyboardAvoidingView style={styles.flex} behavior="padding">
         {children}
       </KeyboardAvoidingView>
     );
-  return <View style={{flex: 1}}>{children}</View>;
+  }
+
+  return <View style={styles.flex}>{children}</View>;
 }
+
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+});

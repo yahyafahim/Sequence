@@ -1,12 +1,17 @@
+import {Dimensions, type ImageSourcePropType} from 'react-native';
 import Images from '../../assets/Images';
-import {Dimensions} from 'react-native';
 
 const {width} = Dimensions.get('window');
 
 const cardWidths = (width - 50) / 10;
 const cardHeights = cardWidths * 1.452;
 
-const row1 = [
+export type BoardCard = {
+  title: string;
+  image: ImageSourcePropType;
+};
+
+const row1: BoardCard[] = [
   {title: 'Joker', image: Images.red_joker},
   {title: 'six_of_diamonds', image: Images.six_of_diamonds},
   {title: 'seven_of_diamonds', image: Images.seven_of_diamonds},
@@ -19,7 +24,7 @@ const row1 = [
   {title: 'black_joker', image: Images.black_joker},
 ];
 
-const row2 = [
+const row2: BoardCard[] = [
   {title: 'five_of_diamonds', image: Images.five_of_diamonds},
   {title: 'three_of_hearts', image: Images.three_of_hearts},
   {title: 'two_of_hearts', image: Images.two_of_hearts},
@@ -32,7 +37,7 @@ const row2 = [
   {title: 'ace_of_clubs', image: Images.ace_of_clubs},
 ];
 
-const row3 = [
+const row3: BoardCard[] = [
   {title: 'four_of_diamonds', image: Images.four_of_diamonds},
   {title: 'four_of_hearts', image: Images.four_of_hearts},
   {title: 'king_of_diamonds', image: Images.king_of_diamonds},
@@ -45,7 +50,7 @@ const row3 = [
   {title: 'king_of_clubs', image: Images.king_of_clubs},
 ];
 
-const row4 = [
+const row4: BoardCard[] = [
   {title: 'three_of_diamonds', image: Images.three_of_diamonds},
   {title: 'five_of_hearts', image: Images.five_of_hearts},
   {title: 'queen_of_diamonds', image: Images.queen_of_diamonds},
@@ -58,7 +63,7 @@ const row4 = [
   {title: 'queen_of_clubs', image: Images.queen_of_clubs},
 ];
 
-const row5 = [
+const row5: BoardCard[] = [
   {title: 'two_of_diamonds', image: Images.two_of_diamonds},
   {title: 'six_of_hearts', image: Images.six_of_hearts},
   {title: 'ten_of_diamonds', image: Images.ten_of_diamonds},
@@ -71,7 +76,7 @@ const row5 = [
   {title: 'ten_of_clubs', image: Images.ten_of_clubs},
 ];
 
-const row6 = [
+const row6: BoardCard[] = [
   {title: 'ace_of_spades', image: Images.ace_of_spades},
   {title: 'seven_of_hearts', image: Images.seven_of_hearts},
   {title: 'nine_of_diamonds', image: Images.nine_of_diamonds},
@@ -84,7 +89,7 @@ const row6 = [
   {title: 'nine_of_clubs', image: Images.nine_of_clubs},
 ];
 
-const row7 = [
+const row7: BoardCard[] = [
   {title: 'king_of_spades', image: Images.king_of_spades},
   {title: 'eight_of_hearts', image: Images.eight_of_hearts},
   {title: 'eight_of_diamonds', image: Images.eight_of_diamonds},
@@ -97,7 +102,7 @@ const row7 = [
   {title: 'eight_of_clubs', image: Images.eight_of_clubs},
 ];
 
-const row8 = [
+const row8: BoardCard[] = [
   {title: 'queen_of_spades', image: Images.queen_of_spades},
   {title: 'nine_of_hearts', image: Images.nine_of_hearts},
   {title: 'seven_of_diamonds', image: Images.seven_of_diamonds},
@@ -110,7 +115,7 @@ const row8 = [
   {title: 'seven_of_clubs', image: Images.seven_of_clubs},
 ];
 
-const row9 = [
+const row9: BoardCard[] = [
   {title: 'ten_of_spades', image: Images.ten_of_spades},
   {title: 'ten_of_hearts', image: Images.ten_of_hearts},
   {title: 'queen_of_hearts', image: Images.queen_of_hearts},
@@ -123,7 +128,7 @@ const row9 = [
   {title: 'six_of_clubs', image: Images.six_of_clubs},
 ];
 
-const row10 = [
+const row10: BoardCard[] = [
   {title: 'black_joker', image: Images.black_joker},
   {title: 'nine_of_spades', image: Images.nine_of_spades},
   {title: 'eight_of_spades', image: Images.eight_of_spades},
@@ -138,7 +143,7 @@ const row10 = [
 
 const board = [row1, row2, row3, row4, row5, row6, row7, row8, row9, row10];
 
-const deckOfCards = [
+const deckOfCards: BoardCard[] = [
   {title: 'two_of_clubs', image: Images.two_of_clubs},
   {title: 'two_of_diamonds', image: Images.two_of_diamonds},
   {title: 'two_of_hearts', image: Images.two_of_hearts},

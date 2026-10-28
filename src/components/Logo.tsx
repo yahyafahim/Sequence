@@ -2,7 +2,11 @@ import React from 'react';
 import {Image} from 'react-native';
 import Images from '../assets/Images';
 
-export default ({size = 170}) => {
+type LogoProps = {
+  size?: number;
+};
+
+export default function Logo({size = 170}: LogoProps) {
   return (
     <Image
       source={Images.logoSmall}
@@ -10,4 +14,4 @@ export default ({size = 170}) => {
       resizeMode="contain"
     />
   );
-};
+}

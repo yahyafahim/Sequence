@@ -1,4 +1,6 @@
-const Images = {
+import type {ImageSourcePropType} from 'react-native';
+
+const Images: Record<string, ImageSourcePropType> = {
   two_of_clubs: require('./2_of_clubs.png'),
   two_of_diamonds: require('./2_of_diamonds.png'),
   two_of_hearts: require('./2_of_hearts.png'),

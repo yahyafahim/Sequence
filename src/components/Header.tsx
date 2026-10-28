@@ -4,7 +4,12 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import Icons from '../assets/Icons';
 import {Colors, NavService} from '../config';
 
-export function Header({title, back = false}) {
+type HeaderProps = {
+  title?: string;
+  back?: boolean;
+};
+
+export function Header({title, back = false}: HeaderProps) {
   return (
     <View
       style={{
@@ -16,7 +21,7 @@ export function Header({title, back = false}) {
         marginHorizontal: 20,
         height: 45,
       }}>
-      {title?.length && (
+      {title?.length ? (
         <View style={{position: 'absolute', left: 0, right: 0}}>
           <Text
             style={{
@@ -28,9 +33,9 @@ export function Header({title, back = false}) {
             {title}
           </Text>
         </View>
-      )}
+      ) : null}
 
-      {back && (
+      {back ? (
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={NavService.goBack}
@@ -52,7 +57,7 @@ export function Header({title, back = false}) {
             }}
           />
         </TouchableOpacity>
-      )}
+      ) : null}
     </View>
   );
 }

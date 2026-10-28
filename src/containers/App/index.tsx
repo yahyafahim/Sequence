@@ -1,12 +1,9 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-//Screens
+import type {AppStackParamList} from '../../types/navigation';
 import Home from './Home';
 
-const Stack = createNativeStackNavigator();
-
-//Extra Stacks
+const Stack = createNativeStackNavigator<AppStackParamList>();
 
 const AppStack = () => {
   return (
@@ -16,7 +13,7 @@ const AppStack = () => {
         animation: 'simple_push',
         headerShown: false,
       }}
-      initialRouteName={'Home'}>
+      initialRouteName="Home">
       <Stack.Screen name="Home" component={Home} />
     </Stack.Navigator>
   );
