@@ -1,4 +1,4 @@
-import React, {type PropsWithChildren, useEffect} from 'react';
+import React, {type PropsWithChildren} from 'react';
 import {
   View,
   StatusBar,
@@ -9,8 +9,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
-import Orientation from 'react-native-orientation-locker';
 import Navigation from './src';
 
 if (Platform.OS === 'android') {
@@ -23,18 +23,16 @@ LogBox.ignoreAllLogs(true);
 LogBox.ignoreLogs(['Remote debugger']);
 
 const App = () => {
-  useEffect(() => {
-    Orientation.lockToPortrait();
-  }, []);
-
   return (
-    <Wrapper>
-      <GestureHandlerRootView style={styles.flex}>
-        <StatusBar barStyle="dark-content" />
-        <Navigation />
-        <Toast />
-      </GestureHandlerRootView>
-    </Wrapper>
+    <SafeAreaProvider>
+      <Wrapper>
+        <GestureHandlerRootView style={styles.flex}>
+          <StatusBar barStyle="dark-content" />
+          <Navigation />
+          <Toast />
+        </GestureHandlerRootView>
+      </Wrapper>
+    </SafeAreaProvider>
   );
 };
 

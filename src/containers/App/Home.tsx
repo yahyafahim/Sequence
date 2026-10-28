@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {board, cardHeights, cardWidths} from '../../config/Constants';
 import {Colors, Shadows} from '../../config';
 import Header from '../../components/Header';
-import Images from '../../assets/Images';
 
 type PlayerColor = 'red' | 'blue';
 
@@ -18,64 +18,78 @@ const Home = () => {
   const [play, setPlay] = useState(false);
 
   return (
-    <View style={styles.mainContainer}>
+    <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>
       <Header title="Sequence" />
-      {board.map((row, rowIndex) => (
-        <View style={styles.row} key={rowIndex.toString()}>
-          {row.map((card, index) => {
-            const isPlayed = playedCards.findIndex(
-              item => item.rowNo === rowIndex && item.columnNo === index,
-            );
-            let player: PlayerColor | '' = '';
-            if (isPlayed >= 0) {
-              player = playedCards[isPlayed].player;
-            }
+      <View style={styles.mainContainer}>
+        {board.map((row, rowIndex) => (
+          <View style={styles.row} key={rowIndex.toString()}>
+            {row.map((card, index) => {
+              const isPlayed = playedCards.findIndex(
+                item => item.rowNo === rowIndex && item.columnNo === index,
+              );
+              let player: PlayerColor | '' = '';
+              if (isPlayed >= 0) {
+                player = playedCards[isPlayed].player;
+              }
 
-            return (
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={styles.cardContainer}
-                onPress={() => {
-                  const newPlayedCards = [...playedCards];
-                  if (isPlayed === -1) {
-                    newPlayedCards.push({
-                      player: play ? 'red' : 'blue',
-                      rowNo: rowIndex,
-                      columnNo: index,
-                    });
-                  }
-                  setPlayedCards(newPlayedCards);
-                  setPlay(!play);
-                }}
-                key={index.toString()}
-                disabled={
-                  (rowIndex === 0 && index === 0) ||
-                  (rowIndex === 0 && index === 9) ||
-                  (rowIndex === 9 && index === 0) ||
-                  (rowIndex === 9 && index === 9)
-                }>
-                <Image source={card.image} style={styles.card} />
-                {isPlayed !== -1 ? (
-                  <Image
-                    source={
-                      player === 'red' ? Images.redChip : Images.blueChip
+              const CardSvg = card.Card;
+
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={styles.cardContainer}
+                  onPress={() => {
+                    const newPlayedCards = [...playedCards];
+                    if (isPlayed === -1) {
+                      newPlayedCards.push({
+                        player: play ? 'red' : 'blue',
+                        rowNo: rowIndex,
+                        columnNo: index,
+                      });
                     }
-                    style={styles.chip}
-                  />
-                ) : null}
-              </TouchableOpacity>
-            );
-          })}
-        </View>
-      ))}
-    </View>
+                    setPlayedCards(newPlayedCards);
+                    setPlay(!play);
+                  }}
+                  key={index.toString()}
+                  disabled={
+                    (rowIndex === 0 && index === 0) ||
+                    (rowIndex === 0 && index === 9) ||
+                    (rowIndex === 9 && index === 0) ||
+                    (rowIndex === 9 && index === 9)
+                  }>
+                  <CardSvg width={cardWidths} height={cardHeights} />
+                  {isPlayed !== -1 ? (
+                    <View
+                      style={[
+                        styles.chip,
+                        {
+                          backgroundColor:
+                            player === 'red' ? '#E53935' : '#1E88E5',
+                        },
+                      ]}
+                    />
+                  ) : null}
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        ))}
+      </View>
+    </SafeAreaView>
   );
 };
 
 export default Home;
 
 const styles = StyleSheet.create({
-  mainContainer: {flex: 1, paddingBottom: 40},
+  safeArea: {
+    flex: 1,
+    backgroundColor: Colors.white,
+  },
+  mainContainer: {
+    flex: 1,
+    paddingBottom: 40,
+  },
   row: {
     flexDirection: 'row',
     paddingHorizontal: 10,
@@ -87,16 +101,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  card: {
-    width: cardWidths,
-    height: cardHeights,
-    resizeMode: 'contain',
-    backgroundColor: Colors.white,
-  },
   chip: {
-    width: cardWidths,
-    height: cardHeights,
-    resizeMode: 'contain',
+    width: cardWidths * 0.7,
+    height: cardWidths * 0.7,
+    borderRadius: (cardWidths * 0.7) / 2,
     position: 'absolute',
+    opacity: 0.9,
+    borderWidth: 1,
+    borderColor: Colors.white,
   },
 });
